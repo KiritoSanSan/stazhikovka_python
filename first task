@@ -1,0 +1,31 @@
+import openpyxl
+from openpyxl import Workbook
+import random
+from datetime import datetime
+import os
+names = ["Beksultan", "Alikhan", "Arystan", "Nurzhan", "Asylzhan", "Alina", "Aruzhan", "Damir", "Lana Del Rey", "Chingiz"]
+
+def create_excel_file():
+    wb = Workbook()
+    sheet = wb.create_sheet(title='TDSheet')
+    sheet['A1'] = 'Name'
+    sheet['B1'] = 'Current Date'
+    sheet['C1'] = 'Current Time'
+
+    for row in range(2,12):
+        sheet.cell(row=row,column=1,value= random.choice(names))
+        sheet.cell(row=row, column=2, value=datetime.now().strftime("%d-%m-%Y"))
+        sheet.cell(row=row, column=3, value=datetime.now().strftime("%H:%M:%S"))
+
+    file_name = f"{random.choice(names)}_{datetime.now().strftime('%d-%m-%Y')}_{random.randint(100,999)}.xlsx"
+    save_path = os.path.join(os.path.expanduser('~'),'Documents','skcu',file_name)
+    isExist = r'C:\Users\zirko\Documents\skcu'
+    if not os.path.exists(isExist):
+        os.makedirs(isExist)
+    wb.save(save_path)
+
+if __name__ == '__main__':
+    create_excel_file()
+
+
+
